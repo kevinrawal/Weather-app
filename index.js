@@ -12,7 +12,16 @@ async function fetchData(city) {
   try {
     const response = await fetch('https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=' + city, options);
     const result = await response.json();
-    // console.log(result.temp);
+    const t = result.temp;
+    //changing the vector image according to the temprature 
+    if(t<=15){
+      document.getElementById('cold').style.display = 'block';
+      document.getElementById('hot').style.display = 'none';
+    }
+    else{
+      document.getElementById('hot').style.display = 'block';
+      document.getElementById('cold').style.display = 'none';
+    }
     document.getElementById('name-city').innerHTML = city;
     document.getElementById('temp').innerHTML = result.temp;
     document.getElementById('humidity').innerHTML = result.humidity;
@@ -23,17 +32,12 @@ async function fetchData(city) {
   }
 }
 
-// Call the async function to start the request
 fetchData("Ahmedabad");
 const submitButton = document.getElementById('submit');
 
 submitButton.addEventListener('click', () => {
-    // Get the city value from the input field
-    // console.log("ok");
     event.preventDefault();
     const cityInput = document.getElementById('city');
     const city = cityInput.value;
-  
-    // Call fetchData with the input city
     fetchData(city);
   });
